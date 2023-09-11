@@ -14,7 +14,9 @@ public class InfoService {
 
     public InfoEntity getInfo(String slack_name, String track){
 
-        DayOfWeek dayOfWeek = LocalDateTime.now().getDayOfWeek();
+        String dayOfWeek = LocalDateTime.now().getDayOfWeek().toString().toLowerCase();
+
+        String currentDay = dayOfWeek.substring(0, 1).toUpperCase() + dayOfWeek.substring(1);
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime utcTime = ZonedDateTime.of(currentTime, ZoneId.of("UTC")).toLocalDateTime();
 
@@ -24,7 +26,7 @@ public class InfoService {
 
         return InfoEntity.builder()
                 .slack_name(slack_name)
-                .current_day(dayOfWeek)
+                .current_day(currentDay)
                 .utc_time(formattedTime)
                 .track(track)
                 .github_file_url(github_file_url)
